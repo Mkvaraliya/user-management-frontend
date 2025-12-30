@@ -36,14 +36,14 @@ const Register = () => {
 
     try {
       await register(form);
-      // ❌ no navigate here
     } catch (err) {
-      setError("Password Format is Incoorect");
+      // Display the actual error message from backend
+      setError(err.message || "Registration failed");
+      console.error("Registration error:", err);
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -58,18 +58,17 @@ const Register = () => {
           Sign up to get started
         </p>
 
-        <div className="min-h-[40px] mb-2">
-          {error && (
-            <div className="rounded bg-red-100 text-red-700 p-2 text-sm">
-              ⚠️ {error}
-            </div>
-          )}
-        </div>
+        {error && (
+          <div className="rounded bg-red-100 text-red-700 p-3 text-sm mb-4">
+            ⚠️ {error}
+          </div>
+        )}
 
         <input
           type="text"
           name="fullName"
           placeholder="Full Name"
+          value={form.fullName}
           className="w-full mb-3 p-2 border rounded dark:bg-gray-700
                      focus:ring-2 focus:ring-green-500 focus:outline-none"
           onChange={handleChange}
@@ -80,6 +79,7 @@ const Register = () => {
           type="email"
           name="email"
           placeholder="Email"
+          value={form.email}
           className="w-full mb-3 p-2 border rounded dark:bg-gray-700
                      focus:ring-2 focus:ring-green-500 focus:outline-none"
           onChange={handleChange}
@@ -89,7 +89,8 @@ const Register = () => {
         <input
           type="password"
           name="password"
-          placeholder="Password (min 8 chars)"
+          placeholder="Password (min 4 chars)"
+          value={form.password}
           className="w-full mb-3 p-2 border rounded dark:bg-gray-700
                      focus:ring-2 focus:ring-green-500 focus:outline-none"
           onChange={handleChange}
