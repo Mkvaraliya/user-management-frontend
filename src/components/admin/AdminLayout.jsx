@@ -1,0 +1,22 @@
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
+
+const AdminLayout = ({ children }) => {
+  return (
+    <div className="flex min-h-screen bg-slate-100 dark:bg-slate-900">
+      <Sidebar />
+
+      <div className="flex flex-col flex-1">
+        <Topbar />
+
+        <main className="p-6">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default AdminLayout;
+
+
